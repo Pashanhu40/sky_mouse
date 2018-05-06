@@ -2,6 +2,7 @@
 #include "usart.h"		
 #include "delay.h"	
 #include "led.h"
+#include "adc.h"
 #include "key.h"
 #include "timer.h"
 #include "mouse.h"
@@ -16,11 +17,12 @@
  int main(void)
  { 
    
-	float pitch,roll,yaw; 		//欧拉角
-	short aacx,aacy,aacz;		//加速度传感器原始数据
-	short gyrox,gyroy,gyroz;	//陀螺仪原始数据	    
+//	float pitch,roll,yaw; 		//欧拉角
+//	short aacx,aacy,aacz;		//加速度传感器原始数据
+//	short gyrox,gyroy,gyroz;	//陀螺仪原始数据	    
 	uint8_t temp_buffer[32];
   extern uint8_t KEY_State[4];
+	extern __IO uint16_t ADCConvertedValue;
 	 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
   TIM4_Config(1999,71);  //2ms中断
@@ -30,10 +32,11 @@
   KEY_Init();	 
   NRF24L01_Init();    	 //初始化NRF24L01
 	MPU_Init();					   //初始化MPU6050 
+	ADC1_Init();
 	
 	while(NRF24L01_Check())	//检查NRF24L01是否在位.	
 	{
-		GPIO_ResetBits(GPIOC,GPIO_Pin_13);
+		
 		printf("NRF24L01初始化失败！\n");
 	}	
 	
@@ -41,8 +44,13 @@
 	
  	while(1)
 	{   
-		  uint8_t i; 
-
+	
+		  GPIO_ResetBits(GPIOC,GPIO_Pin_13);
+		
+      //printf("%f\n",Read_ADC());
+		
+		   printf("%f\n",ADCConvertedValue*3.30/0xfff);
+		
 			//mpu_dmp_get_data(&pitch,&roll,&yaw);
 		  
 		  //MPU_Get_Accelerometer(&aacx,&aacy,&aacz);	//得到加速度传感器数据
