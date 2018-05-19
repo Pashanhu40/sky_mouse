@@ -17,7 +17,7 @@ void ADC1_Init()
 	ADC_InitTypeDef ADC_InitStructure;
 	DMA_InitTypeDef DMA_InitStructure;
   
-	  /* Enable DMA1 clock */
+	/* Enable DMA1 clock */
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
   /* Enable ADC1 and GPIOA clock */
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOA, ENABLE);
@@ -31,7 +31,7 @@ void ADC1_Init()
 	
 	/* DMA1 channel1 configuration ----------------------------------------------*/
   DMA_DeInit(DMA1_Channel1);
-  DMA_InitStructure.DMA_PeripheralBaseAddr = ADC1_DR_Address;
+  DMA_InitStructure.DMA_PeripheralBaseAddr = ADC1_DR_Address;                 //ADC采样值的数据存储地址
   DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&ADCConvertedValue;
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
   DMA_InitStructure.DMA_BufferSize = 1;
@@ -96,7 +96,7 @@ float Read_ADC(void)
 	//Delay_Ms(5);
 	//ADC_VALUE = ADC_GetConversionValue(ADC1)*3.30/0xfff;
 	
-  ADC_VALUE = ADCConvertedValue*3.30/0xfff;
+  ADC_VALUE = ADCConvertedValue*3.30/0xfff;  //  
 	
 	return ADC_VALUE;
 }
