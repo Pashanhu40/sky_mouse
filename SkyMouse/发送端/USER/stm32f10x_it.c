@@ -24,6 +24,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h" 
 #include "key.h"
+#include "adc.h"
+ 
+uint8_t TX_flag=0;
+uint8_t TX_flag_Before=0;
 
  
 void NMI_Handler(void)
@@ -99,3 +103,32 @@ void TIM4_IRQHandler(void)
 	  KEY_Scan();
   }			
 }
+
+
+
+
+void TIM3_IRQHandler(void)
+{
+  if (TIM_GetITStatus(TIM3,TIM_IT_Update) != RESET)
+  {
+    TIM_ClearITPendingBit(TIM3,TIM_IT_Update);
+	  ADC_SoftwareStartConvCmd(ADC1,ENABLE);
+		TX_flag_Before = !TX_flag;
+  }			
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

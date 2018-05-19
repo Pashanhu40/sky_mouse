@@ -23,8 +23,11 @@
 	uint8_t temp_buffer[32];
   extern uint8_t KEY_State[4];
 	extern __IO uint16_t ADCConvertedValue;
+  extern uint8_t TX_flag;
+  extern uint8_t TX_flag_Before;
 	 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	TIM3_Config(1000-1,9-1);
   TIM4_Config(1999,71);  //2ms中断
 	delay_init();	    	   //延时函数初始化	  
 	uart_init(115200);	 	 //蓝牙模块TF-01 波特率为115200
@@ -49,7 +52,7 @@
 		
       //printf("%f\n",Read_ADC());
 		
-		   printf("%f\n",ADCConvertedValue*3.30/0xfff);
+		   //printf("%f\n",ADCConvertedValue*3.30/0xfff);
 		
 			//mpu_dmp_get_data(&pitch,&roll,&yaw);
 		  
@@ -71,12 +74,20 @@
 //				printf("%ld 发送失败！\n",num);
 //				err_num++;
 //			}
-        Mouse_FormatFill(temp_buffer);
-				NRF24L01_TxPacket(temp_buffer);
+       // Mouse_FormatFill(temp_buffer);
+				//NRF24L01_TxPacket(temp_buffer);
 			  
 			//printf("%ld:  %f  %f  %f\n",num,pitch,roll,yaw);
 			//printf("%d,%d,%d,%d\n",KEY_State[0],KEY_State[1],KEY_State[2],KEY_State[3]);	
 		
+		
+		  if(TX_flag != TX_flag_Before)
+			{
+				temp_buffer[0] = (uint16_t)ADC1->DR;
+        temp_buffer[1] = (uint16_t)ADC1->DR >> 8;				
+				NRF24L01_TxPacket(temp_buffer);
+			  TX_flag_Before = TX_flag;
+			}
 	}
 
 } 	

@@ -15,6 +15,7 @@
 "..\obj\timer.o"
 "..\obj\adc.o"
 "..\obj\vs10xx.o"
+"..\obj\microphone.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
 "..\obj\usart.o"

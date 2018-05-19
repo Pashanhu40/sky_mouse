@@ -13,6 +13,7 @@
  int main(void)
 {     
 	u8 tmp_buf[32];
+  uint16_t ADC_value;
 	long num=0;
 	 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
@@ -40,17 +41,18 @@
 	{
 			LED1=!LED1;//LED闪烁
 		  
-//			if(NRF24L01_RxPacket(tmp_buf))
-//			{
-//				printf("%ld 没有接收到任何数据！\n",num);
-//				num++;
-//			}
-//		  else
-//			{
-//				printf("%ld %s\n",num,tmp_buf);
-//				num++;
-//			}
-      Joystick_Send(tmp_buf[0],tmp_buf[1],tmp_buf[2],tmp_buf[3]);
+			if(NRF24L01_RxPacket(tmp_buf))
+			{
+				printf("%ld 没有接收到任何数据！\n",num);
+				num++;
+			}
+		  else
+			{
+				ADC_value = tmp_buf[0] | tmp_buf[1] << 8;
+				printf("%ld %d\n",num,ADC_value);
+				num++;
+			}
+      //Joystick_Send(tmp_buf[0],tmp_buf[1],tmp_buf[2],tmp_buf[3]);
 //		  	Joystick_Send(1,2,3,4);
 	}
 

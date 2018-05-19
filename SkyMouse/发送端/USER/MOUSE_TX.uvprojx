@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\LCD;..\HARDWARE\KEY;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\HARDWARE\SPI;..\HARDWARE\NRF24L01;..\HARDWARE\TIMER;..\HARDWARE\ADC;..\HARDWARE\VS10XX</IncludePath>
+              <IncludePath>..\HARDWARE\LED;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\LCD;..\HARDWARE\KEY;..\HARDWARE\MPU6050;..\HARDWARE\MPU6050\eMPL;..\HARDWARE\SPI;..\HARDWARE\NRF24L01;..\HARDWARE\TIMER;..\HARDWARE\ADC;..\HARDWARE\VS10XX;..\HARDWARE\MICROPHONE</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -492,6 +492,11 @@
               <FileName>VS10XX.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\VS10XX\VS10XX.c</FilePath>
+            </File>
+            <File>
+              <FileName>microphone.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\MICROPHONE\microphone.c</FilePath>
             </File>
           </Files>
         </Group>
